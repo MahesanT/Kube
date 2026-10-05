@@ -1,0 +1,29 @@
+groups:
+  - name: kubernetes-node-health
+    rules:
+      - alert: NodeDown
+        expr: up{job=~"kubernetes-service-endpoints.*", instance=~".*:9100"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Kubernetes node exporter is down"
+          description: "Prometheus has been unable to scrape node-exporter on {{ $labels.instance }} for more than 2 minutes."
+
+      - alert: HighNodeCPU
+        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High node CPU usage"
+          description: "Node {{ $labels.instance }} CPU usage has been above 85% for 5 minutes."
+
+      - alert: HighNodeMemory
+        expr: 100 * (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) > 85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High node memory usage"
+          description: "Node {{ $labels.instance }} memory usage has been above 85% for 5 minutes."
