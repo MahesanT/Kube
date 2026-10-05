@@ -1,0 +1,16 @@
+# Secrets and credentials
+*.pem
+*.key
+*.crt
+kubeconfig
+.kube/
+.env
+.env.*
+
+# Local/editor files
+.DS_Store
+.vscode/
+.idea/
+
+# Helm temp files
+*.tgz
