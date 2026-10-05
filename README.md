@@ -161,6 +161,12 @@ The dashboard contains panels for:
 - node-exporter target health
 - root filesystem usage
 
+### Dashboard preview
+
+![Grafana Kubernetes monitoring dashboard](screenshots/grafana-dashboard-overview.jpg)
+
+The dashboard shows live CPU usage, node memory usage, pod restarts, and root disk usage across the lab nodes.
+
 During import, select the Prometheus datasource when Grafana asks for `DS_PROMETHEUS`.
 
 ## Alert rules
